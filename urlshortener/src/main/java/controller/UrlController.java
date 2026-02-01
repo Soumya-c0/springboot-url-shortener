@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/api")
@@ -22,9 +24,10 @@ public class UrlController {
     // Create short URL
     @PostMapping("/shorten")
     public ResponseEntity<String> shortenUrl(
-            @RequestBody ShortenUrlRequest request,
+            @Valid @RequestBody ShortenUrlRequest request,
             HttpServletRequest httpRequest
-    ) {
+    )
+    {
         String shortCode = service.shortenUrl(request.getUrl());
 
         String baseUrl = httpRequest.getRequestURL()
