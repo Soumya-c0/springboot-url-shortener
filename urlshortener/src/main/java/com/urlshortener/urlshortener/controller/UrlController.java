@@ -2,12 +2,10 @@ package com.urlshortener.urlshortener.controller;
 
 import com.urlshortener.urlshortener.dto.ShortenUrlRequest;
 import com.urlshortener.urlshortener.service.UrlService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.net.URI;
 import jakarta.validation.Valid;
 
 
@@ -37,15 +35,5 @@ public class UrlController {
         String shortUrl = baseUrl + "/" + shortCode;
 
         return ResponseEntity.ok(shortUrl);
-    }
-
-    // Redirect to original URL
-    @GetMapping("/{code}")
-    public ResponseEntity<Void> redirect(@PathVariable String code) {
-        String originalUrl = service.getOriginalUrl(code);
-
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .location(URI.create(originalUrl))
-                .build();
     }
 }
